@@ -1,0 +1,19 @@
+services:
+
+  library-db:
+    image: postgres:latest
+    container_name: library-db
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_DB: library
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+      - ./db/create_schema.sql:/docker-entrypoint-initdb.d/01_create_initial_schema.sql
+
+volumes:
+  pgdata:
